@@ -4,7 +4,7 @@ const path = require("path");
 const app = express(); // Initializing Express
 const puppeteer = require("puppeteer");
 const { exec } = require("child_process");
-exec("which chromium", (error, stdout, stderr) => {
+exec("find / | grep chromium", (error, stdout, stderr) => {
     if (error) {
         console.log(`error: ${error.message}`);
         return;
