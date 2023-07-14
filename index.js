@@ -2,7 +2,18 @@ const chromium = require('chrome-aws-lambda');
 const express = require("express");
 const path = require("path");
 const app = express(); // Initializing Express
-const asyncHandler = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next) ;
+const puppeteer = require("puppeteer");
+const asyncHandler = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
+const startPuppeteerSession = async () => { const browser = await puppeteer.launch({
+    headless: false,
+    args: ['--no-sandbox', '--disable-setuid-sandbox'] 
+      
+    });
+  const page = await browser.newPage();
+  return {browser, page};
+};
+const sessions = {};
+
 exports.handler = async (event, context, callback) => {
   let result = null;
   let browser = null;
