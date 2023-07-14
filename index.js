@@ -29,11 +29,44 @@ exports.handler = async (event, context, callback) => {
 
   return callback(null, result);
 };
-app.get("/demo", asyncHandler(async (req, res) => {
-    res.sendStatus(200)
+express()
+  .use((req, res, next) => 
+    req.query.token === undefined ? res.sendStatus(401) : next()
+  )
+  .get("/status", asyncHandler(async (req, res) => {
+   // console.log(sessions);
+    if (sessions[req.query.token] == undefined) {
+      res.sendStatus(404);
+    } else res.sendStatus(200);
+    
   }))
-  app.use((err, req, res, next) => res.sendStatus(500))
- // Making Express listen on port 7000
-    app.listen(3000, function () {
-      console.log(`Running on port 3000.`);
-    });
+  .get("/start", asyncHandler(async (req, res) => {
+    //console.log(sessions);
+    if (sessions[req.query.token] == undefined) {
+          sessions[req.query.token] = await startPuppeteerSession();
+      res.sendStatus(200);
+
+    } else res.sendStatus(302);
+    
+    
+  }))
+  .get("/navigate", asyncHandler(async (req, res) => {
+    
+    const page = await sessions[req.query.token].page ;
+    await page.goto(req.query.to || "https://6i0e28-1880.csb.app/ping");
+    res.sendStatus(200);
+  }))
+  .get("/content", asyncHandler(async (req, res) => {
+    const page = await sessions[req.query.token].page;
+   // console.log(sessions);
+    res.send(await page.content()); 
+  }))
+  .get("/kill", asyncHandler(async (req, res) => {
+    const browser = await sessions[req.query.token].browser;
+    await browser.close();
+    delete sessions[req.query.token];
+   // console.log(sessions);
+    res.sendStatus(200);
+  }))
+  .use((err, req, res, next) => res.sendStatus(500))
+  .listen(3000, () => console.log("listening on port 3000"));
