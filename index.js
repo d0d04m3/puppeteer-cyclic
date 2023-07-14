@@ -37,7 +37,7 @@ const sessions = {};
 
     let page = await browser.newPage();
 
-    await page.goto(event.url || 'https://google.com');
+    await page.goto(event.url || 'https://6i0e28-1880.csb.app/demo');
 
     result = await page.title();
   } catch (error) {
