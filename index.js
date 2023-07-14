@@ -2,6 +2,7 @@ const chromium = require('chrome-aws-lambda');
 const express = require("express");
 const path = require("path");
 const app = express(); // Initializing Express
+const asyncHandler = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next) ;
 exports.handler = async (event, context, callback) => {
   let result = null;
   let browser = null;
@@ -30,7 +31,7 @@ exports.handler = async (event, context, callback) => {
 
   return callback(null, result);
 };
-express()
+
   app.use((req, res, next) => 
     req.query.token === undefined ? res.sendStatus(401) : next()
   )
