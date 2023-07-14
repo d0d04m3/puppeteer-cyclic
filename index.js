@@ -1,5 +1,6 @@
 const chromium = require('chrome-aws-lambda');
-
+const express = require("express");
+const app = express(); // Initializing Express
 exports.handler = async (event, context, callback) => {
   let result = null;
   let browser = null;
@@ -28,3 +29,7 @@ exports.handler = async (event, context, callback) => {
 
   return callback(null, result);
 };
+ // Making Express listen on port 7000
+    app.listen(3000, function () {
+      console.log(`Running on port 3000.`);
+    });
