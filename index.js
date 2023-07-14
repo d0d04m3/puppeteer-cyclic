@@ -29,6 +29,10 @@ exports.handler = async (event, context, callback) => {
 
   return callback(null, result);
 };
+app.get("/demo", asyncHandler(async (req, res) => {
+    res.sendStatus(200)
+  }))
+  app.use((err, req, res, next) => res.sendStatus(500))
  // Making Express listen on port 7000
     app.listen(3000, function () {
       console.log(`Running on port 3000.`);
