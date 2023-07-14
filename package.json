@@ -1,5 +1,6 @@
+{
 "name": "Screenshots-with-Puppeteer",
-  "version": "1.0.0",
+"version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -17,4 +18,5 @@
     "chrome-aws-lambda":"latest",
     "puppeteer-core":"latest"
   }
+}
 
