@@ -1,0 +1,20 @@
+"name": "Screenshots-with-Puppeteer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "latest",
+    "express-ws": "latest",
+    "puppeteer": "latest",
+    "shelljs": "latest",
+    "chrome-aws-lambda":"latest",
+    "puppeteer-core":"latest"
+  }
+}
